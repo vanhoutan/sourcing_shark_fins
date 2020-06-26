@@ -63,7 +63,7 @@ for(s in 1:length(spps)){
   
   
   # match to raster made from Gabriels models
-  match_raster <- read.csv('/Users/ktanaka/Desktop//shark_finning_2018/data/Reygondeau_dist_mods/Aetobatus narinari_OBS_MODEL.csv')
+  match_raster <- read.csv('/Users/ktanaka/shark_finning_2020/data/Reygondeau_dist_mods/Aetobatus narinari_OBS_MODEL.csv')
   str(match_raster)
   match_raster <- rasterFromXYZ(match_raster[c(1,2,4)],crs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs ")
   match_raster
@@ -86,7 +86,7 @@ for(s in 1:length(spps)){
   
   range <- range[,c("Lon","Lat","OBS","MODELAVG")]
   
-  empty_gab_df <- read.csv('/Users/tgagne/shark_finning_2018/data/Reygondeau_dist_mods/Aetobatus narinari_OBS_MODEL.csv')
+  empty_gab_df <- read.csv('/Users/ktanaka/shark_finning_2020/data/Reygondeau_dist_mods/Aetobatus narinari_OBS_MODEL.csv')
   empty_gab_df$OBS <- NaN
   empty_gab_df$MODELAVG <- NaN
   
