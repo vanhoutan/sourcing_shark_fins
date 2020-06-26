@@ -5,16 +5,20 @@ library(purrr)
 
 my_db <- aquamapsdata:::src_sqlite_aquamapsdata()
 
-spps <- c("Alopias pelagicus", 
-          "Alopias superciliosus",
-          "Alopias vulpinus",
-          "Isurus oxyrinchus", 
-          "Isurus paucus" ,             
-          "Lamna ditropis",
-          "Lamna nasus",
-          "Sphyrna corona")
+spps <- c(
+  "Alopias pelagicus",
+  "Alopias superciliosus",
+  "Alopias vulpinus",
+  "Isurus oxyrinchus",
+  "Isurus paucus" ,
+  "Lamna ditropis",
+  "Lamna nasus",
+  "Sphyrna corona"
+)
 
 for(s in 1:length(spps)){
+  
+  s = 1
   
   # pull in species native range from aquampas
   species <- spps[s]
