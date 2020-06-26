@@ -15,6 +15,7 @@ spps <- c("Alopias pelagicus",
           "Sphyrna corona")
 
 for(s in 1:length(spps)){
+  
   # pull in species native range from aquampas
   species <- spps[s]
   species
@@ -37,30 +38,27 @@ for(s in 1:length(spps)){
     range$Lat[i] <- csquare_to_dd(range$CsquareCode[i])$lat
     range$Lon[i] <- csquare_to_dd(range$CsquareCode[i])$lon
     range$initial[i] <- csquare_to_dd(range$CsquareCode[i])$initial
+    
   } 
   
   # correct lat lon region to relavant sign
   range$Lon <- ifelse(range$initial == "NE",range$Lon, range$Lon)
   range$Lat <- ifelse(range$initial == "NE",range$Lat , range$Lat)
   
-  range$Lon <-ifelse(range$initial == "NW",range$Lon * -1, range$Lon)
+  range$Lon <- ifelse(range$initial == "NW",range$Lon * -1, range$Lon)
   range$Lat <- ifelse(range$initial == "NW",range$Lat , range$Lat)
   
-  range$Lon <-ifelse(range$initial == "SE",range$Lon , range$Lon)
+  range$Lon <- ifelse(range$initial == "SE",range$Lon , range$Lon)
   range$Lat <- ifelse(range$initial == "SE",range$Lat * -1 , range$Lat)
   
-  range$Lon <-ifelse(range$initial == "SW",range$Lon * -1, range$Lon)
+  range$Lon <- ifelse(range$initial == "SW",range$Lon * -1, range$Lon)
   range$Lat <- ifelse(range$initial == "SW",range$Lat * -1, range$Lat)
   
-  
   ggplot(range,aes(Lon,Lat,fill = probability))+geom_raster()+coord_fixed()
-  
-  
   
   # turn in to raster
   range <- rasterFromXYZ(range[c('Lon','Lat','probability')], crs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs ")
   range
-  
   
   # match to raster made from Gabriels models
   match_raster <- read.csv('/Users/ktanaka/shark_finning_2020/data/Reygondeau_dist_mods/Aetobatus narinari_OBS_MODEL.csv')
@@ -83,7 +81,6 @@ for(s in 1:length(spps)){
            OBS = NA,
            MODELAVG = probability) 
   
-  
   range <- range[,c("Lon","Lat","OBS","MODELAVG")]
   
   empty_gab_df <- read.csv('/Users/ktanaka/shark_finning_2020/data/Reygondeau_dist_mods/Aetobatus narinari_OBS_MODEL.csv')
@@ -92,13 +89,9 @@ for(s in 1:length(spps)){
   
   str(empty_gab_df)
   
-  
   str(range)
   
-  test <- left_join(empty_gab_df,range,by = c("Lon","Lat")) %>% 
-    mutate(MODELAVG = MODELAVG.y,
-           OBS = NA) 
-  
+  test <- left_join(empty_gab_df,range,by = c("Lon","Lat")) %>% mutate(MODELAVG = MODELAVG.y, OBS = NA) 
   
   range <-  test[,c('Lon','Lat','OBS','MODELAVG')]
   range$OBS <- NaN
@@ -106,9 +99,7 @@ for(s in 1:length(spps)){
   
   str(range)
   
-  
   ggplot(range,aes(Lon,Lat,fill=MODELAVG))+geom_raster()+coord_fixed()
-  
   
   # save as csv with format of Gabriels .csvs
   csv_name <- paste0("",species,"_OBS_MODEL.csv")
@@ -117,14 +108,4 @@ for(s in 1:length(spps)){
   
   #example naming schema: Aetobatus narinari_OBS_MODEL.csv
   
-  
 }
-
-
-
-
-
-
-
-
-
