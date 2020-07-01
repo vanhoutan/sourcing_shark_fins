@@ -80,6 +80,7 @@ for(i in 1:length(list_gab)){
   colnames(col) <- colnames(super_rich)[4]                    # every column is a spp
   null_df <- cbind( null_df, col)
   print(i)
+  
 }
 
 str(null_df)
@@ -92,6 +93,7 @@ gathered_mods <- gather(null_df,                                 # cast this wid
 
 #gathered_mods <- fread('/Users/tgagne/shark_finning_2018/data/binom_gathered_mods.csv')
 gathered_mods <- fread('/Users/tgagne/shark_finning_2018/data/binom_gathered_mods_Nov8.csv')
+
 # minimize sparsity in the tall dataframe to save space, 
 # remove NA cell values, i.e. locations where a spp has no distribution
 gathered_mods <- gathered_mods[complete.cases(gathered_mods),]   
@@ -124,16 +126,12 @@ fin_hauls %>%
   ggplot()+
   #geom_bar(aes(x=SPECIES_NAME,y=COUNT, fill = COUNT), stat = "identity", show.legend = F)+
   geom_bar(aes(x=SPECIES_NAME,y=COUNT, fill = scaled_fin), stat = "identity", show.legend = F)+
-  
   facet_wrap(~STUDY, scales = "free_x",nrow = 1)+
-  #scale_fill_manual(values = colorRampPalette(brewer.pal(8,"Spectral"))(62) %>% rev()  ) +
-  #scale_fill_manual(values = pals::kovesi.rainbow(62) ) +
+  # scale_fill_manual(values = colorRampPalette(brewer.pal(8,"Spectral"))(62) %>% rev()  ) +
+  # scale_fill_manual(values = pals::kovesi.rainbow(62) ) +
   scale_fill_gradientn(colors = pals::parula(60) ) +
-  
   coord_flip() +
   themeo
-
-
 
 spps <- levels(as.factor(fin_hauls$SPECIES_NAME))
 gathered_mods$spp <- as.factor(gathered_mods$spp)
@@ -162,15 +160,12 @@ gathered_mods %>%
   #scale_fill_gradientn(colours = rev(c('#ffffcc','#ffeda0','#fed976',
   #                                     '#feb24c','#fd8d3c','#fc4e2a',
   #                                     '#e31a1c','#bd0026','#800026','black')), na.value = "gray")+
-  scale_fill_gradientn(colors = pals::parula(60) ) +
+  scale_fill_viridis_c() +
   facet_wrap(~spp)+
   scale_x_continuous(expand = c(0,0))+
   scale_y_continuous(expand = c(0,0))+
-  
-  themeo+
+  themeo +
   theme(panel.background = element_rect(fill = 'black', colour = 'black')) 
-
-
 
 #ggplot(ranges, aes(Lon, Lat))+geom_tile(aes(fill = mod_val))+ 
 #  coord_fixed() +
@@ -190,7 +185,7 @@ for(p in c(1,2,3,5)){
   
   seizure_studies <- levels(as.factor(fin_hauls$STUDY)) 
   seizure_studies # vector of seizures
-  #p = 5
+
   seizure_studies_name <- seizure_studies[p]                                 # name a single seizure record, i.e. Feitosa, etc.
   seizure_studies_name
   fin_hauls <- filter(fin_hauls, STUDY == seizure_studies_name & COUNT >= 1) # subset out a single study
@@ -221,22 +216,26 @@ for(p in c(1,2,3,5)){
   
   # for each paralell function def
   spp_n_sample <- function(spp_n){
-    point_samp <- dplyr::sample_n(spp_n,1, replace = T)
+    
+    point_samp <- dplyr::sample_n(spp_n, 1, replace = T)
     shark_no_shark <- rbinom(n = 1, size = 1, prob = as.numeric(point_samp[,"mod_val"]) )
-    run_shark <- cbind(point_samp,shark_no_shark,sim_run = r)
+    run_shark <- cbind(point_samp, shark_no_shark, sim_run = r)
+    
   }
   
   #setup parallel backend to use many processors
-  cores=detectCores()
+  cores = detectCores()
   cl <- makeCluster(cores[1]-1) #not to overload your computer
   registerDoParallel(cl)
   
   for(s in 1:dim(seizure_spp)[1]){
     
-    spp_n <- filter(gathered_mods,spp == seizure_spp$spp[s])
+    s = 1
+    
+    spp_n <- filter(gathered_mods, spp == seizure_spp$spp[s])
     spp_n
     
-    fin_count <- filter(fin_hauls,spp == seizure_spp$spp[s])[,"COUNT"] %>% ceiling()
+    fin_count <- filter(fin_hauls, spp == seizure_spp$spp[s])[,"COUNT"] %>% ceiling()
     fin_count
     
     N_frac <- fin_count/sum(fin_hauls$COUNT)
@@ -249,7 +248,9 @@ for(p in c(1,2,3,5)){
     null_samp_df <- foreach(r=1:N_spp_total, .combine = rbind) %dopar% {
       
       temp_null <- spp_n_sample(spp_n)
-      temp_null}
+      temp_null
+      
+    }
     
     # working slow for loop
     #for(r in 1:(as.numeric(fin_count)*N) ){
