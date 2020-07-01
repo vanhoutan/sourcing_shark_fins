@@ -15,14 +15,12 @@ themeo <-theme_classic()+
         legend.title=element_blank(),
         strip.text=element_text(hjust=0) )
 
-
- 
 studies_samp <- list.files('./data/binomial_sampling')
 
 stud_df <- NULL
 
 for(f in 1:length(studies_samp)){
-  tmp <- read.csv(paste0('/Users/tgagne/shark_finning_2018/data/binomial_sampling/',studies_samp[f]))
+  tmp <- read.csv(paste0('/Users/ktanaka/shark_finning_2020/data/binomial_sampling/',studies_samp[f]))
   str(tmp)
   stud_df <- rbind(tmp,stud_df)
 }
@@ -55,7 +53,7 @@ dens_maps <- ggplot()+
                fill = 'black', color = 'black',
                size = .1)+
   #scale_fill_gradientn(colours = c("black","black",'#4c001f','#72002f','#9e0142','#d53e4f','#f46d43','#fdae61','#fee08b','#ffffbf','white','white'),na.value = "black")+
- 
+  
   # good one
   #scale_fill_gradientn(colours = rev(c('#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026','black')),na.value = "black")+
   
@@ -66,8 +64,8 @@ dens_maps <- ggplot()+
   facet_wrap(~seizure, ncol = 1)+
   themeo + 
   theme(
-     panel.background = element_rect(fill = 'black', colour = 'black')#,
-     #  plot.background = element_rect(fill = 'black', colour = 'black'),
+    panel.background = element_rect(fill = 'black', colour = 'black')#,
+    #  plot.background = element_rect(fill = 'black', colour = 'black'),
     # legend.text = element_blank()
   )+
   
@@ -80,6 +78,7 @@ dens_maps <- ggplot()+
   
   xlab(NULL)+
   ylab(NULL)
+
 dens_maps  
 
 stud_df %>% 
@@ -94,7 +93,7 @@ stud_df %>%
     # legend.text = element_blank()
   )+
   
- 
+  
   
   xlab(NULL)+
   ylab(NULL)
@@ -111,7 +110,7 @@ str(stud_df)
 #plot(EEZ_df)
 
 library(sf)
-EEZ_df <- st_read("/Users/tgagne/shark_finning_2018/data/EEZ_land_union_v2_201410/EEZ_land_v2_201410.shp") %>% st_as_sf()
+EEZ_df <- st_read("/Users/ktanaka/shark_finning_2020/data/EEZ_land_union_v2_201410/EEZ_land_v2_201410.shp") %>% st_as_sf()
 EEZ_df
 EEZ_df <- st_union(EEZ_df) 
 EEZ_df
@@ -167,11 +166,7 @@ layout_matrix <- rbind(
   c(1,1,1,1,1,2,2),
   c(1,1,1,1,1,2,2))
 
-
 gridExtra::grid.arrange(ggplotGrob(dens_maps), ggplotGrob(dens_fins), layout_matrix = layout_matrix)
-
-
-
 
 sp_pts %>%  
   mutate(prob_cuts = as.numeric(cut_width(NORMALIZED,.2))) %>% 
@@ -184,15 +179,6 @@ sp_pts %>%
   ggplot(aes(x=prob_cuts,y=prop, group = seizure, color = seizure))+#geom_smooth(method = "lm", formula = y ~ poly(x, 2), se = F)+
   geom_line(size = 1)+
   themeo
-  
- 
-
-
-
-
-
-
-
 
 ggplot(sp_pts,aes( x = NORMALIZED)) + 
   geom_histogram(aes(fill = in_eez))+
@@ -203,10 +189,3 @@ ggplot(sp_pts,aes( x = NORMALIZED)) +
   labs(x = "prob of fin acquisition",
        y = "count EEZ v HS split")+
   themeo
-
-
-
-
-
-
-  
