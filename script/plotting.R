@@ -5,15 +5,15 @@ library(tidyverse)
 ##############################
 ###  Popular ggPlot theme  ###
 ##############################
-themeo <-theme_classic()+
+themeo <- theme_classic()+
   theme(strip.background = element_blank(),
         axis.line = element_blank(),
         axis.text.x = element_text(margin = margin( 0.2, unit = "cm")),
         axis.text.y = element_text(margin = margin(c(1, 0.2), unit = "cm")),
-        axis.ticks.length=unit(-0.1, "cm"),
+        axis.ticks.length = unit(-0.1, "cm"),
         panel.border = element_rect(colour = "black", fill=NA, size=.5),
-        legend.title=element_blank(),
-        strip.text=element_text(hjust=0) )
+        legend.title = element_blank(),
+        strip.text = element_text(hjust=0) )
 
 studies_samp <- list.files('./data/binomial_sampling')
 
