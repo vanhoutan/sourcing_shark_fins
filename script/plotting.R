@@ -55,9 +55,9 @@ dens_maps <- ggplot()+
   #scale_fill_gradientn(colours = c("black","black",'#4c001f','#72002f','#9e0142','#d53e4f','#f46d43','#fdae61','#fee08b','#ffffbf','white','white'),na.value = "black")+
   
   # good one
-  #scale_fill_gradientn(colours = rev(c('#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026','black')),na.value = "black")+
+  scale_fill_gradientn(colours = rev(c('#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026','black')),na.value = "black")+
   
-  scale_fill_gradientn(colours = rev(c("light yellow",'#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026','black')),na.value = "black")+
+  #scale_fill_gradientn(colours = rev(c("light yellow",'#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026','black')),na.value = "black")+
   #scale_fill_gradientn(colours = c("black",'#4c001f','#72002f','#72002f','#9e0142','#9e0142','#d53e4f','#d53e4f','#f46d43','#f46d43','#fdae61','#fee08b','#ffffbf','white','white'),na.value = "black")+
   #scale_fill_gradientn(colours = c("black","black",'#4c001f','#72002f','#9e0142','#d53e4f','#f46d43','#fdae61','#fee08b','#ffffbf','#e6f598','#abdda4','#66c2a5','#3288bd','#5e4fa2'),na.value = "black")+
   #scale_fill_gradientn(colours = c("black","black","#440154FF", "#482878FF", "#3E4A89FF", "#31688EFF", "#26828EFF", "#1F9E89FF", "#35B779FF", "#6DCD59FF", "#B4DE2CFF", "#FDE725FF", "#FDE725FF", "#FDE725FF","#FDE725FF"),na.value = "black")+
