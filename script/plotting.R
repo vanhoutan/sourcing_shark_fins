@@ -5,10 +5,8 @@
   
   
   
-  ##############################
-  ###  Popular ggPlot theme  ###
-  ##############################
-  
+  ##  Popular ggPlot theme
+
   themeo <- theme_classic()+
     theme(strip.background = element_blank(),
           axis.line = element_blank(),
@@ -155,9 +153,9 @@
     facet_wrap(~seizure)+
     coord_fixed()
   
+ 
   ## exploratory plot of Tyler's 
-  ## that never made it into the paper or OSM 
-  
+  ## that never made it into the paper or OSM  
   dens_fins <- sp_pts %>%  
     mutate(prob_cuts = as.numeric(cut_width(NORMALIZED,.009))) %>% 
     
@@ -190,8 +188,8 @@
     themeo
   
   
-## stack histogram comparing the EEZ vs high seas split probabilities
-## another summary plot of output of the sourcing model
+  ## stack histogram comparing the EEZ vs high seas split probabilities
+  ## another summary plot of output of the sourcing model
   ggplot(sp_pts,aes( x = NORMALIZED)) + 
     geom_histogram(aes(fill = in_eez))+
     scale_fill_brewer(palette = "Dark2")+
