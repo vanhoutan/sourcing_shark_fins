@@ -1,11 +1,14 @@
-  `# plotting single studies
+  # plotting single studies
   library(ggplot2)
   library(tidyverse)
   library(maps)
   
+  
+  
   ##############################
   ###  Popular ggPlot theme  ###
   ##############################
+  
   themeo <- theme_classic()+
     theme(strip.background = element_blank(),
           axis.line = element_blank(),
@@ -56,9 +59,9 @@
     #scale_fill_gradientn(colours = c("black","black",'#4c001f','#72002f','#9e0142','#d53e4f','#f46d43','#fdae61','#fee08b','#ffffbf','white','white'),na.value = "black")+
     
     # good one
-    scale_fill_gradientn(colours = rev(c('#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026','black')),na.value = "black")+
+    #scale_fill_gradientn(colours = rev(c('#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026','black')),na.value = "black")+
     
-    #scale_fill_gradientn(colours = rev(c("light yellow",'#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026','black')),na.value = "black")+
+    scale_fill_gradientn(colours = rev(c("light yellow",'#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026','black')),na.value = "black")+
     #scale_fill_gradientn(colours = c("black",'#4c001f','#72002f','#72002f','#9e0142','#9e0142','#d53e4f','#d53e4f','#f46d43','#f46d43','#fdae61','#fee08b','#ffffbf','white','white'),na.value = "black")+
     #scale_fill_gradientn(colours = c("black","black",'#4c001f','#72002f','#9e0142','#d53e4f','#f46d43','#fdae61','#fee08b','#ffffbf','#e6f598','#abdda4','#66c2a5','#3288bd','#5e4fa2'),na.value = "black")+
     #scale_fill_gradientn(colours = c("black","black","#440154FF", "#482878FF", "#3E4A89FF", "#31688EFF", "#26828EFF", "#1F9E89FF", "#35B779FF", "#6DCD59FF", "#B4DE2CFF", "#FDE725FF", "#FDE725FF", "#FDE725FF","#FDE725FF"),na.value = "black")+
@@ -84,6 +87,7 @@
   
   stud_df %>% 
     #filter(NORMALIZED > 0) %>% 
+
     ggplot()+
     geom_histogram(aes(x=NORMALIZED)) +
     facet_wrap(~seizure, ncol = 1)+
@@ -93,8 +97,7 @@
       #  plot.background = element_rect(fill = 'black', colour = 'black'),
       # legend.text = element_blank()
     )+
-    
-    
+
     
     xlab(NULL)+
     ylab(NULL)
@@ -145,10 +148,15 @@
   
   str(sp_pts)
   
+  ## simple plot of sourcing model output
+  ## with points symboloized by high seas or EEZ
   ggplot(sp_pts)+
     geom_raster(aes(x=coords.x1, y = coords.x2, fill = in_eez))+
     facet_wrap(~seizure)+
     coord_fixed()
+  
+  ## exploratory plot of Tyler's 
+  ## that never made it into the paper or OSM 
   
   dens_fins <- sp_pts %>%  
     mutate(prob_cuts = as.numeric(cut_width(NORMALIZED,.009))) %>% 
@@ -181,6 +189,9 @@
     geom_line(size = 1)+
     themeo
   
+  
+## stack histogram comparing the EEZ vs high seas split probabilities
+## another summary plot of output of the sourcing model
   ggplot(sp_pts,aes( x = NORMALIZED)) + 
     geom_histogram(aes(fill = in_eez))+
     scale_fill_brewer(palette = "Dark2")+
