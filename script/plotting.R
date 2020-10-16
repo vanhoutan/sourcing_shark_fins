@@ -36,7 +36,7 @@
   stud_df <- NULL
   
   for(f in 1:length(studies_samp)){
-    tmp <- read.csv(paste0('/Users/kvanhoutan/shark_finning_2020/data/binomial_sampling/',studies_samp[f]))
+    tmp <- read.csv(paste0('/Users/kvanhoutan/sourcing_shark_fins/data/binomial_sampling/',studies_samp[f]))
     str(tmp)
     stud_df <- rbind(tmp,stud_df)
   }
