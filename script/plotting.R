@@ -123,7 +123,7 @@
   
   
   
-## SEVERAL EXPLORATOTY PLOTS FOLLOW THAT WE DID NOUT USE
+## SEVERAL EXPLORATOTY PLOTS FOLLOW THAT WE DID NOT USE
 ## Simple histogram of probablity density by study
   
   stud_df %>% 
