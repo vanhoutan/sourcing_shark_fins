@@ -6,6 +6,7 @@ Data and code for **"Coastal sharks supply the global shark fin trade,"** publis
 
 [![DOI](https://img.shields.io/badge/DOI-10.1098%2Frsbl.2020.0609-blue)](https://doi.org/10.1098/rsbl.2020.0609)
 [![PMC](https://img.shields.io/badge/PMC-7655481-326599)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7655481/)
+[![License: MIT](https://img.shields.io/badge/Code-MIT-green)](LICENSE)
 [![Data: CC BY 4.0](https://img.shields.io/badge/Data-CC%20BY%204.0-green)](https://creativecommons.org/licenses/by/4.0/)
 [![Made with R](https://img.shields.io/badge/Made%20with-R%20%2B%20MATLAB-198CE7)](https://www.r-project.org/)
 
@@ -114,7 +115,7 @@ Across the four COI studies these tabulate roughly **5,100+ fins** spanning **62
 
 Documented for transparency and future cleanup.
 
-- **No license file.** The article and its data are released under **CC BY 4.0**, but the repository has no `LICENSE`. Adding one (e.g. MIT for the code, CC BY 4.0 for the data) would clarify reuse terms.
+- **Licensing.** The repository's code is released under the **MIT License** (see [`LICENSE`](LICENSE)); the article and its underlying data remain under **CC BY 4.0** per the publisher.
 - **Hard-coded absolute paths.** Scripts read and write from several collaborators' machines — `/Users/ktanaka/...`, `/Users/tgagne/...`, `/Users/kvanhoutan/...` (including a Dropbox path), and the MATLAB `C:\Users\Gabriel\...`. Project-directory names are also inconsistent across scripts (`shark_finning_2018`, `shark_finning_2020`, `TYLER_code_sharkfins_2018`). `plotting.R` already shows the clean relative form (`./data/binomial_sampling`); migrating the rest to `.Rproj`-relative paths is the main reproducibility fix.
 - **Debug pins in loops.** `Aquamaps.R` and `Finning_geog.R` contain leftover `s = 1` / `p = 1` assignments inside their loops that pin execution to the first species/study; remove these to iterate across all elements.
 - **Working title in the old README.** The previous README used the manuscript's working title ("Novel genetic and distribution tools reveal sources of the global shark fin trade"); the published title is *Coastal sharks supply the global shark fin trade*.
@@ -128,4 +129,4 @@ Kyle S. Van Houtan, Tyler O. Gagné, Gabriel Reygondeau, Kisei R. Tanaka, Stephe
 
 ## Data and materials
 
-All data and code are in this repository and the [figshare supplement](https://doi.org/10.6084/m9.figshare.c.5178281). The article is open access under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+All data and code are in this repository and the [figshare supplement](https://doi.org/10.6084/m9.figshare.c.5178281). The code is released under the [MIT License](LICENSE); the article and its data are open access under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
